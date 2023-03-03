@@ -6,8 +6,9 @@ import lombok.Getter;
 
 import java.util.List;
 
-@Getter
+
 @AllArgsConstructor
+@Getter
 public class TitleDto {
 
     private long id;

@@ -16,13 +16,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class CopyRepositoryTestSuite {
 
     @Autowired
-
+    private TitleRepository titleRepository;
+    @Autowired
     private CopyRepository copyRepository;
     private static final Title TITLE = new Title("GONE WITH THE WIND", "Margaret Mitchell", 1936);
 
     @Test
     void testCopySave() {
         //Given
+        titleRepository.save(TITLE);
         Copy copy = new Copy(TITLE, CopyStatus.AVAILABLE);
 
         //When
@@ -35,6 +37,9 @@ public class CopyRepositoryTestSuite {
 
         //CleanUp
         copyRepository.deleteById(id);
+
+        long titleId = TITLE.getId();
+        titleRepository.deleteById(titleId);
 
     }
 }

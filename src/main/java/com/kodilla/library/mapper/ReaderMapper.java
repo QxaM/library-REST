@@ -12,7 +12,8 @@ public class ReaderMapper {
                 readerDTO.getId(),
                 readerDTO.getFirstName(),
                 readerDTO.getLastName(),
-                readerDTO.getCreatedDate());
+                readerDTO.getCreatedDate(),
+                readerDTO.getRentList());
     }
 
     public ReaderDto mapToReaderDto(final Reader reader) {
@@ -20,6 +21,7 @@ public class ReaderMapper {
                 reader.getId(),
                 reader.getFirstName(),
                 reader.getLastName(),
-                reader.getCreatedDate());
+                reader.getCreatedDate(),
+                reader.getRentsList());
     }
 }

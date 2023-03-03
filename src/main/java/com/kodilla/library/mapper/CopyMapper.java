@@ -11,13 +11,15 @@ public class CopyMapper {
         return new Copy(
                 copyDto.getId(),
                 copyDto.getTitle(),
-                copyDto.getStatus());
+                copyDto.getStatus(),
+                copyDto.getRentsList());
     }
 
     public CopyDto mapToCopyDto(final Copy copy) {
         return new CopyDto(
                 copy.getId(),
                 copy.getTitle(),
-                copy.getStatus());
+                copy.getStatus(),
+                copy.getRentsList());
     }
 }

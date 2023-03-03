@@ -20,7 +20,7 @@ public class Rent {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "ID")
+    @Column(name = "ID", unique = true)
     private long id;
 
     @ManyToOne(

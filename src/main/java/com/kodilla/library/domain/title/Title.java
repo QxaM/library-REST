@@ -20,7 +20,7 @@ public class Title {
     @Id
     @GeneratedValue
     @NotFound
-    @Column(name = "ID")
+    @Column(name = "ID", unique = true)
     private long id;
 
     @Column(name = "TITLE")

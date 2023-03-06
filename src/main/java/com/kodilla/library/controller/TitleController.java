@@ -19,7 +19,7 @@ public class TitleController {
     }
 
     @GetMapping(value = "{titleId}")
-    public TitleDto getTitle(@PathVariable Long titleId) {
+    public TitleDto getTitle(@PathVariable long titleId) {
         return titleMapper.mapToTitleDto(new Title("BOOK" + titleId, "AUTHOR", 2000));
     }
 

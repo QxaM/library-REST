@@ -20,9 +20,8 @@ public class Reader {
 
     @Id
     @GeneratedValue
-    @NotNull
     @Column(name ="ID", unique = true)
-    private long id;
+    private Long id;
 
     @Column(name = "FIRST_NAME")
     private String firstName;
@@ -35,6 +34,11 @@ public class Reader {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Rent> rentsList = new ArrayList<>();
+
+    @PrePersist
+    private void onCreate() {
+        createdDate = new Date();
+    }
 
     public Reader(String firstName, String lastName) {
         this.firstName = firstName;

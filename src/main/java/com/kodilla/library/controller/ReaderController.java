@@ -6,6 +6,7 @@ import com.kodilla.library.mapper.ReaderMapper;
 import com.kodilla.library.service.DbService;
 import lombok.RequiredArgsConstructor;
 import net.bytebuddy.asm.MemberSubstitution;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,22 +27,28 @@ public class ReaderController {
     }
 
     @GetMapping(value = "{readerId}")
-    public ReaderDto getReader(@PathVariable long readerId) {
-        return readerMapper.mapToReaderDto(new Reader("Jan", "Kowalski" + readerId));
+    public ResponseEntity<ReaderDto> getReader(@PathVariable long readerId) throws ElementNotFoundException {
+        return ResponseEntity.ok(readerMapper.mapToReaderDto(service.getReader(readerId)));
     }
 
     @DeleteMapping(value = "{readerId}")
-    public void deleteReader(@PathVariable long readerId) {
-
+    public ResponseEntity<Void> deleteReader(@PathVariable long readerId) throws ElementNotFoundException {
+        service.deleteReader(readerId);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping
-    public ReaderDto updateReader() {
-        return readerMapper.mapToReaderDto(new Reader("Jan", "Changed"));
+    public ResponseEntity<ReaderDto> updateReader(@RequestBody ReaderDto readerDto) {
+        Reader reader = readerMapper.mapToReader(readerDto);
+        Reader savedReader = service.saveReader(reader);
+        return ResponseEntity.ok(readerMapper.mapToReaderDto(savedReader));
     }
 
-    @PostMapping
-    public void createReader() {
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> createReader(@RequestBody ReaderDto readerDto) {
 
+        Reader reader = readerMapper.mapToReader(readerDto);
+        service.saveReader(reader);
+        return ResponseEntity.ok().build();
     }
 }

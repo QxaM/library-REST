@@ -4,6 +4,8 @@ import com.kodilla.library.domain.reader.Reader;
 import com.kodilla.library.domain.reader.ReaderDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReaderMapper {
 
@@ -23,5 +25,11 @@ public class ReaderMapper {
                 reader.getLastName(),
                 reader.getCreatedDate(),
                 reader.getRentsList());
+    }
+
+    public List<ReaderDto> mapToReaderDtoList(final List<Reader> readers) {
+        return readers.stream()
+                .map(this::mapToReaderDto)
+                .toList();
     }
 }

@@ -22,13 +22,13 @@ public class CopyController {
     }
 
     @GetMapping(value = "{copyId}")
-    public CopyDto getCopy(@PathVariable Long copyId) {
+    public CopyDto getCopy(@PathVariable long copyId) {
         Title title = new Title("BOOK" + copyId, "AUTHOR", 2000);
         return copyMapper.mapToCopyDto(new Copy(title, CopyStatus.AVAILABLE));
     }
 
     @DeleteMapping(value = "{copyId}")
-    public void deleteCopy(@PathVariable Long copyId) {
+    public void deleteCopy(@PathVariable long copyId) {
 
     }
 

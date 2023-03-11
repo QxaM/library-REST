@@ -24,7 +24,7 @@ public class TitleController {
     }
 
     @DeleteMapping(value = "{titleId}")
-    public void deleteTitle(@PathVariable Long titleId) {
+    public void deleteTitle(@PathVariable long titleId) {
 
     }
 

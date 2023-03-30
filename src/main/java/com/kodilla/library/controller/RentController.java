@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping(value = "library/v1/rent")
+@RequestMapping(value = "/v1/rent")
 @RequiredArgsConstructor
 public class RentController {
 

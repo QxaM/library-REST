@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "library/v1/copy")
+@RequestMapping(value = "/v1/copy")
 @RequiredArgsConstructor
 public class CopyController {
 

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("library/v1/title")
+@RequestMapping("/v1/title")
 public class TitleController {
 
     private final TitleMapper titleMapper;

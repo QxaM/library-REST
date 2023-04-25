@@ -38,6 +38,11 @@ public class CopyDbService {
         return repository.findById(id).orElseThrow(CopyNotFoundException::new);
     }
 
+    public List<Copy> getAvailableCopies(Long titleId) throws TitleNotFoundException {
+        Title foundTitle = titleService.getTitle(titleId);
+        return repository.findCopiesByTitleAndStatus(foundTitle, CopyStatus.AVAILABLE);
+    }
+
     public void deleteCopy(Long id) throws CopyNotFoundException {
         Copy copyToDelete = repository.findById(id).orElseThrow(CopyNotFoundException::new);
         repository.deleteById(copyToDelete.getId());

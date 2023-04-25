@@ -5,7 +5,6 @@ import com.kodilla.library.controller.exception.TitleNotFoundException;
 import com.kodilla.library.domain.copy.Copy;
 import com.kodilla.library.domain.copy.CopyDto;
 import com.kodilla.library.domain.copy.CopyStatus;
-import com.kodilla.library.domain.title.Title;
 import com.kodilla.library.mapper.CopyMapper;
 import com.kodilla.library.service.CopyDbService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,6 +31,11 @@ public class CopyController {
     @GetMapping(value = "{copyId}")
     public ResponseEntity<CopyDto> getCopy(@PathVariable Long copyId) throws CopyNotFoundException {
         return ResponseEntity.ok(mapper.mapToCopyDto(service.getCopy(copyId)));
+    }
+
+    @GetMapping(value = "findAvailable/{titleId}")
+    public ResponseEntity<List<CopyDto>> getAvailableCopies(@PathVariable Long titleId) throws TitleNotFoundException {
+        return ResponseEntity.ok(mapper.mapToCopyDtoList(service.getAvailableCopies(titleId)));
     }
 
     @DeleteMapping(value = "{copyId}")

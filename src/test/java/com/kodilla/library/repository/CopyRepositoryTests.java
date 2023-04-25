@@ -4,8 +4,6 @@ import com.kodilla.library.domain.copy.Copy;
 import com.kodilla.library.domain.copy.CopyStatus;
 import com.kodilla.library.domain.rent.Rent;
 import com.kodilla.library.domain.title.Title;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,4 +133,28 @@ public class CopyRepositoryTests {
         //CleanUp
         titleRepository.delete(title);
     }
+
+    @Test
+    void testFindByTitleAndStatus() {
+        //Given
+        Title title = new Title("GONE WITH THE WIND", "Margaret Mitchell", 1936);
+        titleRepository.save(title);
+        Copy copy1 = new Copy(title, CopyStatus.AVAILABLE);
+        Copy copy2 = new Copy(title, CopyStatus.CIRCULATION);
+        Copy copy3 = new Copy(title, CopyStatus.AVAILABLE);
+        copyRepository.saveAll(Arrays.asList(copy1, copy2, copy3));
+
+        //When
+        List<Copy> copies = copyRepository.findCopiesByTitleAndStatus(title, CopyStatus.AVAILABLE);
+
+        //Then
+        assertEquals(2, copies.size());
+
+        //CleanUp
+        copyRepository.deleteById(copy1.getId());
+        copyRepository.deleteById(copy2.getId());
+        copyRepository.deleteById(copy3.getId());
+        titleRepository.delete(title);
+    }
+
 }

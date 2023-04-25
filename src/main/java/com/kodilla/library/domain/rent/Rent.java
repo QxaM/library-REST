@@ -16,6 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class Rent {
 
     @Id
@@ -30,7 +31,6 @@ public class Rent {
 
     )
     @JoinColumn(name = "COPY_ID")
-    @Setter
     private Copy copy;
 
     @ManyToOne(
@@ -38,7 +38,6 @@ public class Rent {
             fetch = FetchType.EAGER
     )
     @JoinColumn(name = "READER_ID")
-    @Setter
     private Reader reader;
 
     @Column(name = "RENTAL_DATE")
@@ -52,5 +51,11 @@ public class Rent {
         this.reader = reader;
         this.rentalDate = rentalDate;
         this.returnDate = returnDate;
+    }
+
+    public Rent(Copy copy, Reader reader, Date rentalDate) {
+        this.copy = copy;
+        this.reader = reader;
+        this.rentalDate = rentalDate;
     }
 }

@@ -2,10 +2,7 @@ package com.kodilla.library.domain.copy;
 
 import com.kodilla.library.domain.rent.Rent;
 import com.kodilla.library.domain.title.Title;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,6 +14,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Copy {
 
     @Id

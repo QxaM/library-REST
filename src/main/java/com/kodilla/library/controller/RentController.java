@@ -1,5 +1,9 @@
 package com.kodilla.library.controller;
 
+import com.kodilla.library.controller.exception.CopyNotFoundException;
+import com.kodilla.library.controller.exception.CopyNotInCirculationException;
+import com.kodilla.library.controller.exception.ReaderNotFoundException;
+import com.kodilla.library.controller.exception.RentNotFoundException;
 import com.kodilla.library.domain.copy.Copy;
 import com.kodilla.library.domain.copy.CopyStatus;
 import com.kodilla.library.domain.reader.Reader;
@@ -7,49 +11,45 @@ import com.kodilla.library.domain.rent.Rent;
 import com.kodilla.library.domain.rent.RentDto;
 import com.kodilla.library.domain.title.Title;
 import com.kodilla.library.mapper.RentMapper;
+import com.kodilla.library.service.RentDbService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/v1/rent")
 @RequiredArgsConstructor
 public class RentController {
 
-    private final RentMapper rentMapper;
+    private final RentMapper mapper;
+    private final RentDbService service;
 
     @GetMapping
-    public RentDto getRent() {
-        Title title = new Title("BOOK", "AUTHOR", 2000);
-        Copy copy = new Copy(title, CopyStatus.AVAILABLE);
-        Reader reader = new Reader("Jan", "Kowalski");
-        return rentMapper.mapToRentDto(new Rent(copy, reader, new Date(), new Date()));
+    public ResponseEntity<List<RentDto>> getRents() {
+        return ResponseEntity.ok(mapper.mapToRentDtoList(service.getRents()));
     }
 
     @GetMapping(value = "{rentId}")
-    public RentDto getRent(@PathVariable long rentId) {
-        Title title = new Title("BOOK" + rentId, "AUTHOR", 2000);
-        Copy copy = new Copy(title, CopyStatus.AVAILABLE);
-        Reader reader = new Reader("Jan", "Kowalski");
-        return rentMapper.mapToRentDto(new Rent(copy, reader, new Date(), new Date()));
+    public RentDto getRent(@PathVariable Long rentId) throws RentNotFoundException {
+        return mapper.mapToRentDto(service.getRent(rentId));
     }
 
-    @DeleteMapping(value = "{rentId}")
-    public void deleteRent(@PathVariable long rentId) {
-
+    @PutMapping(value = "returnRental")
+    public ResponseEntity<RentDto> returnRental(@RequestBody RentDto rentDto) throws RentNotFoundException,
+                                                                                    CopyNotFoundException,
+                                                                                    CopyNotInCirculationException {
+        Rent rentToReturn = mapper.mapToRent(rentDto);
+        return ResponseEntity.ok(mapper.mapToRentDto(service.returnCopy(rentToReturn)));
     }
 
-    @PutMapping()
-    public RentDto updateRent() {
-        Title title = new Title("CHANGE BOOK", "AUTHOR", 2000);
-        Copy copy = new Copy(title, CopyStatus.AVAILABLE);
-        Reader reader = new Reader("Jan", "Kowalski");
-        return rentMapper.mapToRentDto(new Rent(copy, reader, new Date(), new Date()));
-    }
-
-    @PostMapping
-    public void createRent() {
-
+    @PostMapping(value = "rentCopy/{copyId}/byReader/{readerId}")
+    public ResponseEntity<RentDto> createRent(@PathVariable Long copyId,
+                                     @PathVariable Long readerId) throws CopyNotFoundException,
+                                                                ReaderNotFoundException {
+        Rent rent = service.createRent(copyId, readerId);
+        return ResponseEntity.ok(mapper.mapToRentDto(rent));
     }
 }

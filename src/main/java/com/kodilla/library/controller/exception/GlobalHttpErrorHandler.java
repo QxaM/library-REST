@@ -17,4 +17,9 @@ public class GlobalHttpErrorHandler {
     public ResponseEntity<Object> handleReaderNotFoundException(TitleNotFoundException exception) {
         return new ResponseEntity<>("Title with given id does not exist", HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(CopyNotFoundException.class)
+    public ResponseEntity<Object> handleCopyNotFoundException(CopyNotFoundException exception) {
+        return new ResponseEntity<>("Copy with given id does not exist", HttpStatus.NOT_FOUND);
+    }
 }

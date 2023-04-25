@@ -2,12 +2,13 @@ package com.kodilla.library.domain.copy;
 
 import com.kodilla.library.domain.rent.Rent;
 import com.kodilla.library.domain.title.Title;
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Copy {
     @GeneratedValue
     @NotNull
     @Column(name = "ID", unique = true)
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "TITLE_ID")
@@ -30,6 +31,7 @@ public class Copy {
 
     @NotNull
     @Column(name = "STATUS")
+    @Setter
     private CopyStatus status;
 
     @OneToMany(cascade = CascadeType.ALL)

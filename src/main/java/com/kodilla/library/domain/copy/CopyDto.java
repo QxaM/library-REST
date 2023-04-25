@@ -1,19 +1,15 @@
 package com.kodilla.library.domain.copy;
 
-import com.kodilla.library.domain.rent.Rent;
-import com.kodilla.library.domain.title.Title;
+import com.kodilla.library.domain.title.TitleDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CopyDto {
-
-    private long id;
-    private Title title;
+    private Long id;
+    private TitleDto title;
     private CopyStatus status;
-    private List<Rent> rentsList;
 }

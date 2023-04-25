@@ -28,12 +28,12 @@ public class TitleController {
     }
 
     @GetMapping(value = "{titleId}")
-    public ResponseEntity<TitleDto> getTitle(@PathVariable long titleId) throws TitleNotFoundException {
+    public ResponseEntity<TitleDto> getTitle(@PathVariable Long titleId) throws TitleNotFoundException {
         return ResponseEntity.ok(mapper.mapToTitleDto(service.getTitle(titleId)));
     }
 
     @DeleteMapping(value = "{titleId}")
-    public ResponseEntity<Void> deleteTitle(@PathVariable long titleId) throws TitleNotFoundException {
+    public ResponseEntity<Void> deleteTitle(@PathVariable Long titleId) throws TitleNotFoundException {
         service.deleteTitle(titleId);
         return ResponseEntity.ok().build();
     }

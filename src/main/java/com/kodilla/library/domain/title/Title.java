@@ -4,7 +4,6 @@ import com.kodilla.library.domain.copy.Copy;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.NotFound;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

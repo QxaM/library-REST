@@ -38,10 +38,4 @@ public class RentMapper {
                 .map(this::mapToRentDto)
                 .collect(Collectors.toList());
     }
-
-    public List<Rent> mapToRentList(final List<RentDto> rentDtoList) {
-        return rentDtoList.stream()
-                .map(this::mapToRent)
-                .collect(Collectors.toList());
-    }
 }

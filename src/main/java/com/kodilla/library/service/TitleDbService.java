@@ -12,22 +12,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TitleDbService {
 
-    private final TitleRepository titleRepository;
+    private final TitleRepository repository;
 
     public Title createTitle(Title title) {
-        return titleRepository.save(title);
+        return repository.save(title);
     }
 
     public List<Title> getAllTitles() {
-        return titleRepository.findAll();
+        return repository.findAll();
     }
 
     public Title getTitle(Long titleId) throws TitleNotFoundException {
-        return titleRepository.findById(titleId).orElseThrow(TitleNotFoundException::new);
+        return repository.findById(titleId).orElseThrow(TitleNotFoundException::new);
     }
 
     public void deleteTitle(Long titleId) throws TitleNotFoundException {
-        Title title = titleRepository.findById(titleId).orElseThrow(TitleNotFoundException::new);
-        titleRepository.delete(title);
+        Title title = repository.findById(titleId).orElseThrow(TitleNotFoundException::new);
+        repository.delete(title);
     }
 }

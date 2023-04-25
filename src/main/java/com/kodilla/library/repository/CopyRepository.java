@@ -11,9 +11,7 @@ import java.util.List;
 @Repository
 @Transactional
 public interface CopyRepository extends CrudRepository<Copy, Long> {
-
     @Override
     List<Copy> findAll();
-
     List<Copy> findCopiesByTitleAndStatus(Title title, CopyStatus copyStatus);
 }

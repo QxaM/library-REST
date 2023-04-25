@@ -12,21 +12,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReaderDbService {
 
-    private final ReaderRepository readerRepository;
+    private final ReaderRepository repository;
 
     public List<Reader> getAllReaders() {
-        return readerRepository.findAll();
+        return repository.findAll();
     }
 
     public Reader getReader(Long id) throws ReaderNotFoundException {
-        return readerRepository.findById(id).orElseThrow(ReaderNotFoundException::new);
+        return repository.findById(id).orElseThrow(ReaderNotFoundException::new);
     }
 
     public void deleteReader(Long id) throws ReaderNotFoundException {
-        readerRepository.deleteById(id);
+        Reader foundReader = repository.findById(id).orElseThrow(ReaderNotFoundException::new);
+        repository.delete(foundReader);
     }
 
     public Reader saveReader(Reader reader) {
-        return readerRepository.save(reader);
+        return repository.save(reader);
     }
 }

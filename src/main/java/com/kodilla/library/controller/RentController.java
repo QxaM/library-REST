@@ -4,19 +4,14 @@ import com.kodilla.library.controller.exception.CopyNotFoundException;
 import com.kodilla.library.controller.exception.CopyNotInCirculationException;
 import com.kodilla.library.controller.exception.ReaderNotFoundException;
 import com.kodilla.library.controller.exception.RentNotFoundException;
-import com.kodilla.library.domain.copy.Copy;
-import com.kodilla.library.domain.copy.CopyStatus;
-import com.kodilla.library.domain.reader.Reader;
 import com.kodilla.library.domain.rent.Rent;
 import com.kodilla.library.domain.rent.RentDto;
-import com.kodilla.library.domain.title.Title;
 import com.kodilla.library.mapper.RentMapper;
 import com.kodilla.library.service.RentDbService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController

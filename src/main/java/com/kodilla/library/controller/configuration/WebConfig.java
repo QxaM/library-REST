@@ -1,6 +1,5 @@
 package com.kodilla.library.controller.configuration;
 
-import com.kodilla.library.controller.CopyController;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.method.HandlerTypePredicate;

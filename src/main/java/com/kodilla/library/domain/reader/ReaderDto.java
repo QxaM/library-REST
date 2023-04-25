@@ -1,12 +1,10 @@
 package com.kodilla.library.domain.reader;
 
-import com.kodilla.library.domain.rent.RentDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @AllArgsConstructor

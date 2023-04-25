@@ -10,10 +10,8 @@ import java.util.List;
 @Repository
 @Transactional
 public interface TitleRepository extends CrudRepository<Title, Long> {
-
     @Override
     Title save(Title entity);
-
     @Override
     List<Title> findAll();
 }

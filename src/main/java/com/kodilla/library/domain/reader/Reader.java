@@ -1,7 +1,6 @@
 package com.kodilla.library.domain.reader;
 
 import com.kodilla.library.domain.rent.Rent;
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

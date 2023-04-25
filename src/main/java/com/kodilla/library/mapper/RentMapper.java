@@ -4,6 +4,9 @@ import com.kodilla.library.domain.rent.Rent;
 import com.kodilla.library.domain.rent.RentDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class RentMapper {
 
@@ -23,5 +26,17 @@ public class RentMapper {
                 rent.getReader(),
                 rent.getRentalDate(),
                 rent.getReturnDate());
+    }
+
+    public List<RentDto> mapToRentDtoList(final List<Rent> rentList) {
+        return rentList.stream()
+                .map(this::mapToRentDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<Rent> mapToRentList(final List<RentDto> rentDtoList) {
+        return rentDtoList.stream()
+                .map(this::mapToRent)
+                .collect(Collectors.toList());
     }
 }

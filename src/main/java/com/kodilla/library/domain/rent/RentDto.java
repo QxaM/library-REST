@@ -10,7 +10,6 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 public class RentDto {
-
     private long id;
     private Copy copy;
     private Reader reader;

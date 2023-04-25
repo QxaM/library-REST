@@ -1,6 +1,6 @@
 package com.kodilla.library.service;
 
-import com.kodilla.library.controller.ElementNotFoundException;
+import com.kodilla.library.controller.exception.ReaderNotFoundException;
 import com.kodilla.library.domain.reader.Reader;
 import com.kodilla.library.repository.ReaderRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DbService {
+public class ReaderDbService {
 
     private final ReaderRepository readerRepository;
 
@@ -18,11 +18,11 @@ public class DbService {
         return readerRepository.findAll();
     }
 
-    public Reader getReader(Long id) throws ElementNotFoundException {
-        return readerRepository.findById(id).orElseThrow(ElementNotFoundException::new);
+    public Reader getReader(Long id) throws ReaderNotFoundException {
+        return readerRepository.findById(id).orElseThrow(ReaderNotFoundException::new);
     }
 
-    public void deleteReader(Long id) throws ElementNotFoundException {
+    public void deleteReader(Long id) throws ReaderNotFoundException {
         readerRepository.deleteById(id);
     }
 

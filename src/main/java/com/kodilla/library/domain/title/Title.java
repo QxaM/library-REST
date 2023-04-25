@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NotFound;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +20,9 @@ public class Title {
 
     @Id
     @GeneratedValue
-    @NotFound
+    @NotNull
     @Column(name = "ID", unique = true)
-    private long id;
+    private Long id;
 
     @Column(name = "TITLE")
     private String title;
@@ -45,4 +46,6 @@ public class Title {
         this.author = author;
         this.publicationYear = publicationYear;
     }
+
+
 }

@@ -4,6 +4,10 @@ import com.kodilla.library.domain.title.Title;
 import com.kodilla.library.domain.title.TitleDto;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class TitleMapper {
 
@@ -13,7 +17,7 @@ public class TitleMapper {
                 titleDto.getTitle(),
                 titleDto.getAuthor(),
                 titleDto.getPublicationYear(),
-                titleDto.getCopies());
+                new ArrayList<>());
     }
 
     public TitleDto mapToTitleDto(final Title title) {
@@ -21,7 +25,12 @@ public class TitleMapper {
                 title.getId(),
                 title.getTitle(),
                 title.getAuthor(),
-                title.getPublicationYear(),
-                title.getCopies());
+                title.getPublicationYear());
+    }
+
+    public List<TitleDto> mapToTitleDtoList(final List<Title> titleList){
+        return titleList.stream()
+                .map(this::mapToTitleDto)
+                .collect(Collectors.toList());
     }
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/v1/rent")
+@RequestMapping(value = "/v1/rents")
 @RequiredArgsConstructor
 public class RentController {
 

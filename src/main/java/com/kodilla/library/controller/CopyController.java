@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/v1/copy")
+@RequestMapping(value = "/v1/copies")
 @RequiredArgsConstructor
 public class CopyController {
 

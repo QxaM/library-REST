@@ -15,8 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/title")
-@Tag(name = "Title Controller")
+@RequestMapping("/v1/titles")
 public class TitleController {
 
     private final TitleMapper mapper;

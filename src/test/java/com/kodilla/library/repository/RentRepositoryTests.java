@@ -11,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -36,36 +38,77 @@ public class RentRepositoryTests {
     private static final String LAST_NAME = "Kowalski";
 
     @Test
-    void testRentSave() {
+    void testSaveRent() {
         //Given
         Title title = new Title(BOOK_NAME, AUTHOR, PUBLICATION_YEAR);
         titleRepository.save(title);
         Copy copy = new Copy(title, CopyStatus.AVAILABLE);
         copyRepository.save(copy);
-
         Reader reader = new Reader(FIRST_NAME, LAST_NAME);
         readerRepository.save(reader);
-
         Rent rent = new Rent(copy, reader, new Date(), new Date());
 
         //When
         rentRepository.save(rent);
 
         //Then
-        Long rentId = rent.getId();
-        Optional<Rent> savedRent = rentRepository.findById(rentId);
+        Optional<Rent> savedRent = rentRepository.findById(rent.getId());
         assertTrue(savedRent.isPresent());
 
         //CleanUp
-        rentRepository.deleteById(rentId);
+        rentRepository.deleteById(rent.getId());
+        readerRepository.deleteById(reader.getId());
+        copyRepository.deleteById(copy.getId());
+        titleRepository.deleteById(title.getId());
+    }
 
-        Long readerId = reader.getId();
-        readerRepository.deleteById(readerId);
+    @Test
+    void testDeleteRent() {
+        //Given
+        Title title = new Title(BOOK_NAME, AUTHOR, PUBLICATION_YEAR);
+        titleRepository.save(title);
+        Copy copy = new Copy(title, CopyStatus.AVAILABLE);
+        copyRepository.save(copy);
+        Reader reader = new Reader(FIRST_NAME, LAST_NAME);
+        readerRepository.save(reader);
+        Rent rent = new Rent(copy, reader, new Date(), new Date());
+        rentRepository.save(rent);
 
-        Long copyId = copy.getId();
-        copyRepository.deleteById(copyId);
+        //When
+        rentRepository.deleteById(rent.getId());
 
-        Long titleId = title.getId();
-        titleRepository.deleteById(titleId);
+        //Then
+        assertFalse(rentRepository.existsById(rent.getId()));
+
+        //CleanUp
+        readerRepository.deleteById(reader.getId());
+        copyRepository.deleteById(copy.getId());
+        titleRepository.deleteById(title.getId());
+    }
+
+    @Test
+    void testFindAll() {
+        //Given
+        Title title = new Title(BOOK_NAME, AUTHOR, PUBLICATION_YEAR);
+        titleRepository.save(title);
+        Copy copy = new Copy(title, CopyStatus.AVAILABLE);
+        copyRepository.save(copy);
+        Reader reader = new Reader(FIRST_NAME, LAST_NAME);
+        readerRepository.save(reader);
+        Rent rent1 = new Rent(copy, reader, new Date(), new Date());
+        Rent rent2 = new Rent(copy, reader, new Date(), new Date());
+        rentRepository.saveAll(Arrays.asList(rent1, rent2));
+
+        //When
+        List<Rent> rents = rentRepository.findAll();
+
+        //Then
+        assertEquals(2, rents.size());
+
+        //CleanUp
+        rents.forEach(rent -> rentRepository.deleteById(rent.getId()));
+        readerRepository.deleteById(reader.getId());
+        copyRepository.deleteById(copy.getId());
+        titleRepository.deleteById(title.getId());
     }
 }

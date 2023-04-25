@@ -10,7 +10,7 @@ public class GlobalHttpErrorHandler {
 
     @ExceptionHandler(ReaderNotFoundException.class)
     public ResponseEntity<Object> handleReaderNotFoundException(ReaderNotFoundException exception) {
-        return new ResponseEntity<>("Group with given id does not exist", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Reader with given id does not exist", HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(TitleNotFoundException.class)

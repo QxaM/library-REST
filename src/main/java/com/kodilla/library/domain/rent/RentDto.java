@@ -1,18 +1,20 @@
 package com.kodilla.library.domain.rent;
 
-import com.kodilla.library.domain.copy.Copy;
-import com.kodilla.library.domain.reader.Reader;
+import com.kodilla.library.domain.copy.CopyDto;
+import com.kodilla.library.domain.reader.ReaderDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RentDto {
-    private long id;
-    private Copy copy;
-    private Reader reader;
+    private Long id;
+    private CopyDto copy;
+    private ReaderDto reader;
     private Date rentalDate;
     private Date returnDate;
 }

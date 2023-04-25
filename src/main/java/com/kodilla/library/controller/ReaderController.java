@@ -18,17 +18,16 @@ import java.util.List;
 public class ReaderController {
 
     private final ReaderDbService service;
-    private final ReaderMapper readerMapper;
+    private final ReaderMapper mapper;
 
     @GetMapping
     public ResponseEntity<List<ReaderDto>> getReaders() {
-        List<Reader> readers = service.getAllReaders();
-        return ResponseEntity.ok(readerMapper.mapToReaderDtoList(readers));
+        return ResponseEntity.ok(mapper.mapToReaderDtoList(service.getAllReaders()));
     }
 
     @GetMapping(value = "{readerId}")
     public ResponseEntity<ReaderDto> getReader(@PathVariable long readerId) throws ReaderNotFoundException {
-        return ResponseEntity.ok(readerMapper.mapToReaderDto(service.getReader(readerId)));
+        return ResponseEntity.ok(mapper.mapToReaderDto(service.getReader(readerId)));
     }
 
     @DeleteMapping(value = "{readerId}")
@@ -39,15 +38,13 @@ public class ReaderController {
 
     @PutMapping
     public ResponseEntity<ReaderDto> updateReader(@RequestBody ReaderDto readerDto) {
-        Reader reader = readerMapper.mapToReader(readerDto);
-        Reader savedReader = service.saveReader(reader);
-        return ResponseEntity.ok(readerMapper.mapToReaderDto(savedReader));
+        Reader savedReader = service.saveReader(mapper.mapToReader(readerDto));
+        return ResponseEntity.ok(mapper.mapToReaderDto(savedReader));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> createReader(@RequestBody ReaderDto readerDto) {
-        Reader reader = readerMapper.mapToReader(readerDto);
-        service.saveReader(reader);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<ReaderDto> createReader(@RequestBody ReaderDto readerDto) {
+        Reader reader = mapper.mapToReader(readerDto);
+        return ResponseEntity.ok(mapper.mapToReaderDto(service.saveReader(reader)));
     }
 }

@@ -1,4 +1,4 @@
-package com.kodilla.library.configuration;
+package com.kodilla.library.controller.configuration;
 
 import com.kodilla.library.controller.CopyController;
 import org.springframework.context.annotation.Configuration;

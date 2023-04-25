@@ -6,16 +6,19 @@ import com.kodilla.library.domain.reader.Reader;
 import com.kodilla.library.domain.rent.Rent;
 import com.kodilla.library.domain.title.Title;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Date;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class RentRepositoryTestSuite {
+public class RentRepositoryTests {
 
     @Autowired
     private TitleRepository titleRepository;

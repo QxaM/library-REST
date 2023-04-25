@@ -4,16 +4,19 @@ import com.kodilla.library.domain.copy.Copy;
 import com.kodilla.library.domain.copy.CopyStatus;
 import com.kodilla.library.domain.title.Title;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class TitleRepositoryTestSuite {
+public class TitleRepositoryTests {
 
     @Autowired
     private TitleRepository titleRepository;

@@ -16,9 +16,6 @@ import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 
-//TODO Porozdzielać na nowe linie exception
-//TODO Dodać i posprawdzać transactional
-
 @Service
 @RequiredArgsConstructor
 public class RentDbService {
@@ -28,7 +25,8 @@ public class RentDbService {
     private final ReaderDbService readerService;
 
     @Transactional
-    public Rent createRent(Long copyId, Long readerId) throws CopyNotFoundException, ReaderNotFoundException {
+    public Rent createRent(Long copyId, Long readerId) throws CopyNotFoundException,
+                                                                ReaderNotFoundException {
         Copy copyToRent = copyService.getCopy(copyId);
         Reader readerRenting = readerService.getReader(readerId);
         Rent rent = new Rent(copyToRent, readerRenting, new Date());

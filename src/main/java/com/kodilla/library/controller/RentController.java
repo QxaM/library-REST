@@ -43,7 +43,7 @@ public class RentController {
     @PostMapping(value = "rentCopy/{copyId}/byReader/{readerId}")
     public ResponseEntity<RentDto> createRent(@PathVariable Long copyId,
                                      @PathVariable Long readerId) throws CopyNotFoundException,
-                                                                ReaderNotFoundException {
+                                                                        ReaderNotFoundException {
         Rent rent = service.createRent(copyId, readerId);
         return ResponseEntity.ok(mapper.mapToRentDto(rent));
     }

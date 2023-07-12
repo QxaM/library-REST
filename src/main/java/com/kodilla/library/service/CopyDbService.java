@@ -9,6 +9,7 @@ import com.kodilla.library.repository.CopyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class CopyDbService {
     private final CopyRepository repository;
     private final TitleDbService titleService;
 
+    @Transactional
     public Copy createCopy(Copy copy) throws TitleNotFoundException {
         Title foundTitle = titleService.getTitle(copy.getTitle().getId());
         Copy copyToSave = new Copy(
@@ -40,6 +42,7 @@ public class CopyDbService {
         return repository.findById(id).orElseThrow(CopyNotFoundException::new);
     }
 
+    @Transactional
     public List<Copy> getAvailableCopies(Long titleId) throws TitleNotFoundException {
         Title foundTitle = titleService.getTitle(titleId);
         return repository.findCopiesByTitleAndStatus(foundTitle, CopyStatus.AVAILABLE);

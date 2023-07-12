@@ -12,8 +12,12 @@ import com.kodilla.library.repository.RentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+
+//TODO Porozdzielać na nowe linie exception
+//TODO Dodać i posprawdzać transactional
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +27,7 @@ public class RentDbService {
     private final CopyDbService copyService;
     private final ReaderDbService readerService;
 
+    @Transactional
     public Rent createRent(Long copyId, Long readerId) throws CopyNotFoundException, ReaderNotFoundException {
         Copy copyToRent = copyService.getCopy(copyId);
         Reader readerRenting = readerService.getReader(readerId);
@@ -32,6 +37,7 @@ public class RentDbService {
         return repository.save(rent);
     }
 
+    @Transactional
     public Rent returnCopy(Rent rent) throws RentNotFoundException,
                                             CopyNotFoundException,
                                             CopyNotInCirculationException {
@@ -50,6 +56,7 @@ public class RentDbService {
     }
 
     public Rent getRent(Long id) throws  RentNotFoundException {
-        return repository.findById(id).orElseThrow(RentNotFoundException::new);
+        return repository.findById(id)
+                .orElseThrow(RentNotFoundException::new);
     }
 }

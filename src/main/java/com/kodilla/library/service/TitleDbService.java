@@ -23,11 +23,12 @@ public class TitleDbService {
     }
 
     public Title getTitle(Long titleId) throws TitleNotFoundException {
-        return repository.findById(titleId).orElseThrow(TitleNotFoundException::new);
+        return repository.findById(titleId)
+                .orElseThrow(TitleNotFoundException::new);
     }
 
     public void deleteTitle(Long titleId) throws TitleNotFoundException {
-        Title title = repository.findById(titleId).orElseThrow(TitleNotFoundException::new);
+        Title title = getTitle(titleId);
         repository.delete(title);
     }
 }

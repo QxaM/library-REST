@@ -24,12 +24,14 @@ public class RentController {
 
     @GetMapping
     public ResponseEntity<List<RentDto>> getRents() {
-        return ResponseEntity.ok(mapper.mapToRentDtoList(service.getRents()));
+        List<Rent> foundRents = service.getRents();
+        return ResponseEntity.ok(mapper.mapToRentDtoList(foundRents));
     }
 
     @GetMapping(value = "{rentId}")
-    public RentDto getRent(@PathVariable Long rentId) throws RentNotFoundException {
-        return mapper.mapToRentDto(service.getRent(rentId));
+    public ResponseEntity<RentDto> getRent(@PathVariable Long rentId) throws RentNotFoundException {
+        Rent foundRent = service.getRent(rentId);
+        return ResponseEntity.ok(mapper.mapToRentDto(foundRent));
     }
 
     @PutMapping(value = "returnRental")
@@ -37,7 +39,8 @@ public class RentController {
                                                                                     CopyNotFoundException,
                                                                                     CopyNotInCirculationException {
         Rent rentToReturn = mapper.mapToRent(rentDto);
-        return ResponseEntity.ok(mapper.mapToRentDto(service.returnCopy(rentToReturn)));
+        Rent returnedRent = service.returnCopy(rentToReturn);
+        return ResponseEntity.ok(mapper.mapToRentDto(returnedRent));
     }
 
     @PostMapping(value = "rentCopy/{copyId}/byReader/{readerId}")

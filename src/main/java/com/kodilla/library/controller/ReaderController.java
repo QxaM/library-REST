@@ -22,12 +22,14 @@ public class ReaderController {
 
     @GetMapping
     public ResponseEntity<List<ReaderDto>> getReaders() {
-        return ResponseEntity.ok(mapper.mapToReaderDtoList(service.getAllReaders()));
+        List<Reader> foundReaders = service.getAllReaders();
+        return ResponseEntity.ok(mapper.mapToReaderDtoList(foundReaders));
     }
 
     @GetMapping(value = "{readerId}")
     public ResponseEntity<ReaderDto> getReader(@PathVariable long readerId) throws ReaderNotFoundException {
-        return ResponseEntity.ok(mapper.mapToReaderDto(service.getReader(readerId)));
+        Reader foundReader = service.getReader(readerId);
+        return ResponseEntity.ok(mapper.mapToReaderDto(foundReader));
     }
 
     @DeleteMapping(value = "{readerId}")
@@ -45,6 +47,7 @@ public class ReaderController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReaderDto> createReader(@RequestBody ReaderDto readerDto) {
         Reader reader = mapper.mapToReader(readerDto);
-        return ResponseEntity.ok(mapper.mapToReaderDto(service.saveReader(reader)));
+        Reader createdReader = service.saveReader(reader);
+        return ResponseEntity.ok(mapper.mapToReaderDto(createdReader));
     }
 }

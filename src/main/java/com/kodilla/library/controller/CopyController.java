@@ -24,17 +24,20 @@ public class CopyController {
 
     @GetMapping
     public ResponseEntity<List<CopyDto>> getCopies() {
-        return ResponseEntity.ok(mapper.mapToCopyDtoList(service.getCopies()));
+        List<Copy> foundCopies = service.getCopies();
+        return ResponseEntity.ok(mapper.mapToCopyDtoList(foundCopies));
     }
 
     @GetMapping(value = "{copyId}")
     public ResponseEntity<CopyDto> getCopy(@PathVariable Long copyId) throws CopyNotFoundException {
-        return ResponseEntity.ok(mapper.mapToCopyDto(service.getCopy(copyId)));
+        Copy foundCopy = service.getCopy(copyId);
+        return ResponseEntity.ok(mapper.mapToCopyDto(foundCopy));
     }
 
     @GetMapping(value = "findAvailable/{titleId}")
     public ResponseEntity<List<CopyDto>> getAvailableCopies(@PathVariable Long titleId) throws TitleNotFoundException {
-        return ResponseEntity.ok(mapper.mapToCopyDtoList(service.getAvailableCopies(titleId)));
+        List<Copy> foundCopies = service.getAvailableCopies(titleId);
+        return ResponseEntity.ok(mapper.mapToCopyDtoList(foundCopies));
     }
 
     @DeleteMapping(value = "{copyId}")
@@ -46,12 +49,14 @@ public class CopyController {
     @PutMapping(value = "{copyId}/changeStatus/{status}")
     public ResponseEntity<CopyDto> changeCopyStatus(@PathVariable Long copyId,
                                                     @PathVariable CopyStatus status) throws CopyNotFoundException{
-        return ResponseEntity.ok(mapper.mapToCopyDto(service.changeStatus(copyId, status)));
+        Copy updatedCopy = service.changeStatus(copyId, status);
+        return ResponseEntity.ok(mapper.mapToCopyDto(updatedCopy));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CopyDto> createCopy(@RequestBody CopyDto copyDto) throws TitleNotFoundException {
         Copy copy = mapper.mapToCopy(copyDto);
-        return ResponseEntity.ok(mapper.mapToCopyDto(service.createCopy(copy)));
+        Copy createdCopy = service.createCopy(copy);
+        return ResponseEntity.ok(mapper.mapToCopyDto(createdCopy));
     }
 }

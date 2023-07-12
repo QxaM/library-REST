@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//TODO porozdzielać service z linii
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/titles")
@@ -24,12 +22,14 @@ public class TitleController {
 
     @GetMapping
     public ResponseEntity<List<TitleDto>> getTitle(){
-        return ResponseEntity.ok(mapper.mapToTitleDtoList(service.getAllTitles()));
+        List<Title> foundTitles = service.getAllTitles();
+        return ResponseEntity.ok(mapper.mapToTitleDtoList(foundTitles));
     }
 
     @GetMapping(value = "{titleId}")
     public ResponseEntity<TitleDto> getTitle(@PathVariable Long titleId) throws TitleNotFoundException {
-        return ResponseEntity.ok(mapper.mapToTitleDto(service.getTitle(titleId)));
+        Title foundTitle = service.getTitle(titleId);
+        return ResponseEntity.ok(mapper.mapToTitleDto(foundTitle));
     }
 
     @DeleteMapping(value = "{titleId}")
@@ -41,12 +41,14 @@ public class TitleController {
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TitleDto> updateTitle(@RequestBody TitleDto titleDto) {
         Title titleToUpdate = mapper.mapToTitle(titleDto);
-        return ResponseEntity.ok(mapper.mapToTitleDto(service.createTitle(titleToUpdate)));
+        Title createdTitle = service.createTitle(titleToUpdate);
+        return ResponseEntity.ok(mapper.mapToTitleDto(createdTitle));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TitleDto> createTitle(@RequestBody TitleDto titleDto) {
         Title titleToSave = mapper.mapToTitle(titleDto);
-        return ResponseEntity.ok(mapper.mapToTitleDto(service.createTitle(titleToSave)));
+        Title updatedTitle = service.createTitle(titleToSave);
+        return ResponseEntity.ok(mapper.mapToTitleDto(updatedTitle));
     }
 }
